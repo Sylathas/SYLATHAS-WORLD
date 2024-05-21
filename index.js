@@ -303,7 +303,7 @@ $(document).on('click', '.workLink', async function () {
     setTimeout(() => {
         //Append everything to Content Page
         if (mobile) {
-            $('#contentMobile').append(projectTitle, projectText, projectCredits);
+            $('#contentMobile').append(projectTitle, projectText);
         } else {
             $('#contentLeft').append(projectTitle, projectText, projectCredits);
         }
@@ -332,7 +332,7 @@ $(document).on('click', '.workLink', async function () {
         }
 
         if (mobile) {
-            $('#contentMobile').append(goBack);
+            $('#contentMobile').append(goBack, projectCredits);
         } else {
             $('#contentLeft').append(goBack);
         }
