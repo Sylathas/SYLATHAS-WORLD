@@ -1,5 +1,5 @@
-import { WorkData, TextData, VaultData } from './Components/getData'
-import { openIndex, disposePages, pageChange, openVault } from './Components/utilsDOM'
+import { WorkData, TextData, VaultData } from './Components/getData.js'
+import { openIndex, disposePages, pageChange, openVault } from './Components/utilsDOM.js'
 
 let i, roomNum = 0;
 let txt = '';
