@@ -21,7 +21,6 @@ function mobileCheck() {
 
 window.addEventListener('load', function () {
     mobile = mobileCheck();
-
     if (mobile) {
         $('#mobileToggle').css('display', 'block');
         videoOne[0].src = "./textures/videos/00_StartMobile.mp4";
@@ -29,12 +28,19 @@ window.addEventListener('load', function () {
         videoTwo[0].src = './textures/videos/01_StillMobile.mp4';
         videoTwo[0].load();
     }
+
+    $('#loading').css('opacity', '0');
+    $('#start').css('opacity', '1');
+});
+
+$('#start').on('click', () => {
     $('#loading').css('display', 'none');
     $('#mainContainer').css('display', 'block');
     setTimeout(typeWriter, 1000);
     setTimeout(() => {
         videoOne[0].play();
     }, 100);
+    $('#start').css('display', 'none');
 });
 
 function typeWriter() {
