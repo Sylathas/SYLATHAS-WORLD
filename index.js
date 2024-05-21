@@ -410,7 +410,7 @@ const moveRoom = (videoTransition, videoStill, room) => {
         $('#buttonLeft').css("background-image", 'url("./textures/UI/buttons/Left.png")');
         $('#buttonRight').css("background-image", 'url("./textures/UI/buttons/Right.png")');
         roomNum = room;
-    }, 400);
+    }, 500);
 }
 
 const arriveRoom = (text, util) => {
