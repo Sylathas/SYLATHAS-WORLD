@@ -1,5 +1,5 @@
-import { getFirestore } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
 
 
 // Your web app's Firebase configuration
