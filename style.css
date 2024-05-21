@@ -812,15 +812,26 @@ body {
     }
 
     #listContainer,
-    #listContainer th,
-    #listContainer td {
+    #listContainer th {
         font-family: sans-serif;
         color: white;
         border: solid 2px white;
         width: 100%;
         text-align: left;
         border-collapse: collapse;
-        font-size: 18px;
+        font-size: 15px;
+        empty-cells: show;
+        padding: 2px;
+    }
+
+    #listContainer td {
+        font-family: serif;
+        color: white;
+        border: solid 2px white;
+        width: 100%;
+        text-align: left;
+        border-collapse: collapse;
+        font-size: 15px;
         empty-cells: show;
         padding: 2px;
     }
