@@ -162,7 +162,7 @@ $('#buttonDown').on('click', () => {
             }
             setTimeout(() => {
                 $('#videoContent').css('opacity', '1');
-            }, 400);
+            }, 500);
         } else if (roomNum == 3) {
             moveRoom('./textures/videos/05_toVaultReverseMobile.mp4', './textures/videos/03_MansionMobile.mp4', 6);
             setTimeout(() => {
@@ -174,7 +174,7 @@ $('#buttonDown').on('click', () => {
             moveRoom('./textures/videos/06_toContactReverseMobile.mp4', './textures/videos/03_MansionMobile.mp4', 6);
             setTimeout(() => {
                 $('#videoContent').css('opacity', '1');
-            }, 400);
+            }, 500);
             $('#Contact').removeClass('workAnimation');
             $('#Contact').addClass('workCloseAnimation');
         }
