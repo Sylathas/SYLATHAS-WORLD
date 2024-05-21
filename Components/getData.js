@@ -1,5 +1,5 @@
 import { collection, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-import { db } from '../firebase';
+import { db } from '../firebase.js';
 
 export const WorkData = async () => {
     //Get projects data
