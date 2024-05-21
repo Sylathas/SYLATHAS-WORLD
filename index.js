@@ -90,6 +90,7 @@ $("#gameplayOne").on("ended", function () {
         arriveRoom(roomText, true);
         $('#buttonDown').addClass("buttonAnimation");
         $('#buttonDown').css("background-image", 'url("./textures/UI/buttons/Down_Active.png")');
+        $('#workScroll')[0].load();
         setTimeout(() => {
             if (mobile) {
                 $('#WorkMobile').removeClass('workCloseAnimation');

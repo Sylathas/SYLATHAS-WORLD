@@ -580,6 +580,11 @@ body {
 
     /*GENERAL STUFF*/
 
+    #mainContainer {
+        height: 90vh;
+    }
+
+
     .corner {
         pointer-events: none;
         width: 50%;
