@@ -367,7 +367,13 @@ $(document).on('click', '.vaultLink', async function () {
         html = converter.makeHtml(text);
     target.innerHTML = html;
 
-    const projectDownload = '<div><a href=' + activeVault.downloadable + ' target="_blank">Download</a></div>';
+    let projectDownload;
+
+    if (activeVault.downloadable) {
+        projectDownload = '<div><a href=' + activeVault.downloadable + ' target="_blank">Download</a></div>';
+    } else {
+        projectDownload = '';
+    }
 
     $('#blogContainer').append(projectTitle, projectText, projectDownload);
 
