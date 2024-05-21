@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sylathas World</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+</head>
+
+<body>
+    <div id="loading"></div>
+    <main id="mainContainer">
+        <div id="videoContent">
+            <video defaultMuted playsinline muted id="gameplayOne" class="video" preload="auto">
+                <source src="./textures/videos/00_Start.mp4" type="video/mp4">
+            </video>
+            <video defaultMuted playsinline muted loop id="gameplayTwo" class="video" preload="auto">
+                <source src="./textures/videos/01_Still.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div id="navbar" class="navBarAnimation">
+            <div id="mobileToggle"></div>
+            <div id="face">
+                <video defaultMuted playsinline muted loop autoplay id="faceVideo">
+                    <source src="./textures/videos/emotes/faceTalking.mp4" type="video/mp4">
+                </video>
+                <video defaultMuted playsinline muted loop autoplay id="faceVideoTwo">
+                    <source src="./textures/videos/emotes/faceStill.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div id="text">
+                <p></p>
+            </div>
+            <div id="textOverlay"></div>
+            <div id="buttonLeft" class="button"></div>
+            <div id="buttonDown" class="button"></div>
+            <div id="buttonUp" class="button"></div>
+            <div id="buttonRight" class="button"></div>
+        </div>
+        <div id="WorkDesktop">
+            <video defaultMuted playsinline muted id="workBook" preload="auto">
+                <source src="./textures/videos/Book.mp4" type="video/mp4">
+            </video>
+            <video defaultMuted playsinline muted id="workBookReverse" preload="auto">
+                <source src="./textures/videos/Book_Reverse.mp4" type="video/mp4">
+            </video>
+            <div id="content">
+                <div id="contentLeft" class="contentDiv">
+                </div>
+                <div id="contentRight" class="contentDiv">
+                </div>
+            </div>
+        </div>
+        <div id="WorkMobile">
+            <video defaultMuted playsinline muted id="workScroll" preload="auto">
+                <source src="./textures/videos/Scroll.mp4" type="video/mp4">
+            </video>
+            <div class="contentDiv" id="contentMobile"></div>
+        </div>
+        <div id="Contact">
+            <div id="contactLinks">
+                <a href="https://www.instagram.com/sylathas/" target="_blank">@sylathas</a>
+                <a href="mailto:sylathas@covohotel.com" target="_blank">sylathas@covohotel.com</a>
+            </div>
+        </div>
+        <div id="Vault">
+            <div id="tableContainer">
+                <table id="listContainer">
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                    </tr>
+                </table>
+                <div id="blogContainer">
+                </div>
+            </div>
+        </div>
+        <div id="cornerLeft" class="corner"></div>
+        <div id="cornerRight" class="corner"></div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="index.js" type="module"></script>
+</body>
+
+</html>

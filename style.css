@@ -1,0 +1,905 @@
+/*-------*/
+/*DESKTOP*/
+/*-------*/
+
+/*LOADING SCREEN*/
+
+#loading {
+    position: absolute;
+    left: 40%;
+    top: 40%;
+    width: 20%;
+    height: 20%;
+    background-image: url('./textures/UI/loading.png');
+    background-size: 100% 100%;
+    animation-name: loading;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(.75, -0.01, .24, 1);
+}
+
+@keyframes loading {
+    0% {
+        transform: scale(1.2, .8);
+    }
+
+    50% {
+        transform: scale(.8, 1.2);
+    }
+
+    100% {
+        transform: scale(1.2, .8);
+    }
+}
+
+/*GENERAL STUFF*/
+
+body {
+    cursor: url('./textures/UI/cursor.png'), auto;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#mainContainer {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: black;
+}
+
+.corner {
+    position: absolute;
+    top: 0;
+    width: 15%;
+    height: 30%;
+    background-image: url('./textures/UI/desktop/edges.png');
+    background-size: 100% 100%;
+    z-index: 15;
+    animation-name: CornersStart;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.75, -0.01, .24, 1);
+    animation-fill-mode: forwards;
+}
+
+#cornerLeft {
+    left: 0;
+}
+
+#cornerRight {
+    right: 0;
+    transform: scaleX(-100%);
+}
+
+/*VIDEO BACKGROUND*/
+
+#videoContent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 80vh;
+    opacity: 1;
+    transition: .5s;
+}
+
+.video {
+    position: fixed;
+    right: 0;
+    top: 0;
+    object-fit: fill;
+    width: 100%;
+    height: 80%;
+}
+
+#gameplayOne {
+    z-index: 2;
+}
+
+#gameplayTwo {
+    z-index: 1;
+}
+
+/*NAVBAR*/
+
+#navbar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 25vh;
+    background-image: url('./textures/UI/desktop/Desktop_Nobuttons.png');
+    background-size: 100% 100%;
+    z-index: 15;
+    transform: scaleX(100%);
+}
+
+.navBarAnimation {
+    animation-name: navBarStart;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.75, -0.01, .24, 1);
+    animation-fill-mode: forwards;
+}
+
+#face {
+    width: 7%;
+    height: 49%;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 29%;
+    left: 5%;
+}
+
+#faceVideo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+#faceVideoTwo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+}
+
+#text {
+    width: 30%;
+    height: 33%;
+    position: absolute;
+    top: 32%;
+    left: 22%;
+    overflow-y: scroll;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0px 0px 10px rgb(0, 255, 55);
+    padding: 5px;
+}
+
+#text p {
+    transform: scaleY(1.1);
+    font-size: 20px;
+    white-space: pre-line;
+}
+
+#textOverlay {
+    width: 32%;
+    height: 40%;
+    position: absolute;
+    top: 32%;
+    left: 22%;
+    background-image: url('./textures/UI/desktop/screen-grid.png');
+    background-size: 100% 100%;
+    pointer-events: none;
+}
+
+.button {
+    width: 8%;
+    height: 70%;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 16%;
+    transform: scale(1);
+}
+
+#buttonLeft {
+    left: 60%;
+    background-image: url('./textures/UI/buttons/Left.png');
+}
+
+#buttonDown {
+    left: 70%;
+    background-image: url('./textures/UI/buttons/Down.png');
+}
+
+#buttonUp {
+    left: 80%;
+    background-image: url('./textures/UI/buttons/Up.png');
+}
+
+#buttonRight {
+    left: 90%;
+    background-image: url('./textures/UI/buttons/Right.png');
+}
+
+.buttonAnimation {
+    animation-name: buttonActive;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(.75, -0.01, .24, 1);
+    filter: contrast(100%);
+}
+
+.buttonAnimation:hover {
+    filter: contrast(150%);
+}
+
+@keyframes navBarStart {
+    0% {
+        transform: scaleX(100%);
+        height: 0;
+    }
+
+    40% {
+        transform: scaleX(70%);
+        height: 40vh;
+    }
+
+    70% {
+        transform: scaleX(110%);
+        height: 20vh;
+    }
+
+    85% {
+        transform: scaleX(95%);
+        height: 26vh;
+    }
+
+    100% {
+        transform: scaleX(100%);
+        height: 25vh;
+    }
+}
+
+@keyframes CornersStart {
+    0% {
+        width: 30%;
+        height: 0;
+    }
+
+    40% {
+        width: 10%;
+        height: 40%;
+    }
+
+    70% {
+        width: 18%;
+        height: 25%;
+    }
+
+    85% {
+        width: 14%;
+        height: 32%;
+    }
+
+    100% {
+        width: 15%;
+        height: 30%;
+    }
+}
+
+@keyframes buttonActive {
+    0% {
+        transform: scale(1.1, .9);
+    }
+
+    50% {
+        transform: scale(.9, 1.1);
+    }
+
+    100% {
+        transform: scale(1.1, .9);
+    }
+}
+
+/*WORK*/
+
+#WorkDesktop {
+    position: absolute;
+    left: 10%;
+    top: 0;
+    width: 80%;
+    height: 75%;
+    z-index: 6;
+    transform: scale(0, 0);
+}
+
+#WorkMobile {
+    display: none;
+}
+
+.workAnimation {
+    animation-name: book;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.75, -0.01, .24, 1);
+    animation-fill-mode: forwards;
+}
+
+.workCloseAnimation {
+    animation-name: bookClose;
+    animation-duration: .5s;
+    animation-timing-function: cubic-bezier(.75, -0.01, .24, 1);
+    animation-fill-mode: forwards;
+}
+
+#workBook {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    object-fit: fill;
+    width: 90%;
+    height: 100%;
+}
+
+#workBookReverse {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    object-fit: fill;
+    width: 90%;
+    height: 100%;
+    display: none;
+}
+
+@keyframes book {
+    0% {
+        transform: scale(0, 0);
+    }
+
+    40% {
+        transform: scale(1.3, .7);
+    }
+
+    70% {
+        transform: scale(.8, 1.2);
+
+    }
+
+    85% {
+        transform: scale(1.1, .9);
+    }
+
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes bookClose {
+    0% {
+        transform: scale(1, 1);
+    }
+
+    50% {
+        transform: scale(1.2, .8);
+    }
+
+    100% {
+        transform: scale(0, 0);
+    }
+}
+
+/*PAGE CONTENTS*/
+
+.contentDiv {
+    position: absolute;
+    top: 15%;
+    width: 30%;
+    height: 70%;
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#contentLeft {
+    left: 15%;
+    font-size: 15px;
+}
+
+#contentLeft h1 {
+    transform: scaleY(1.2);
+}
+
+#contentRight {
+    right: 15%;
+}
+
+.goBack {
+    position: relative;
+    left: 0;
+    width: 30%;
+    height: 50px;
+    background-image: url('./textures/UI/buttons/back.png');
+    background-size: 100% 100%;
+    transform: scaleX(-100%);
+    margin-bottom: 30px;
+}
+
+.workLink {
+    color: blue;
+    text-decoration: underline;
+    line-height: 5px;
+}
+
+.workLink:hover {
+    color: red;
+}
+
+.workGallery {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.youtube {
+    width: 100%;
+    height: auto;
+}
+
+/*CONTACT*/
+
+#Contact {
+    position: absolute;
+    left: 25%;
+    top: 0;
+    width: 50%;
+    height: 75%;
+    z-index: 6;
+    transform: scale(0, 0);
+    background-image: url('./textures/UI/contact.jpg');
+    background-size: 100% 100%;
+}
+
+#contactLinks {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    font-size: 20px;
+    justify-content: space-around;
+}
+
+/*VAULT*/
+
+#Vault {
+    position: absolute;
+    left: 12.5%;
+    top: 0;
+    width: 75%;
+    height: 75%;
+    z-index: 6;
+    transform: scale(0, 0);
+    background-image: url('./textures/UI/chest.jpg');
+    background-size: 100% 100%;
+}
+
+#tableContainer {
+    position: absolute;
+    left: 50%;
+    top: 37%;
+    transform: translateX(-50%);
+    width: 55%;
+    height: 48%;
+    background-color: black;
+    overflow-y: scroll;
+}
+
+#listContainer,
+#listContainer th,
+#listContainer td {
+    font-family: sans-serif;
+    color: white;
+    border: solid 2px white;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    font-size: 18px;
+    empty-cells: show;
+    padding: 2px;
+}
+
+#listContainer th {
+    font-family: sans-serif;
+    color: white;
+}
+
+#listContainer td {
+    font-family: serif;
+    color: white;
+    font-size: 18px;
+}
+
+.vaultLink {
+    text-decoration: underline;
+}
+
+#blogContainer {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    width: 90%;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    border-collapse: collapse;
+    empty-cells: show;
+}
+
+#blogContainer div {
+    box-shadow: inset 0 0 10px #fff;
+    width: 100%;
+}
+
+#blogContainer a {
+    color: red;
+}
+
+.blogImage {
+    width: 100%;
+    height: 30vh;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.goBackVault {
+    width: 50%;
+    height: 100px;
+    background-image: url('./textures/UI/buttons/back.png');
+    background-size: 100% 100%;
+    transform: scaleX(-100%);
+}
+
+#blogContainer td img {
+    width: 500px;
+}
+
+/*//////////*/
+/*MOBILE CSS*/
+/*//////////*/
+
+@media only screen and (max-width: 600px) {
+    body {
+        margin: 0;
+    }
+
+    #loading {
+        left: 25%;
+        top: 40%;
+        width: 50%;
+        height: 20%;
+    }
+
+    /*GENERAL STUFF*/
+
+    .corner {
+        pointer-events: none;
+        width: 50%;
+        height: 30%;
+        animation-name: CornersStartMobile;
+    }
+
+    /*VIDEO BACKGROUND*/
+
+    #videoContent {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 300%;
+        height: 100vh;
+        opacity: 1;
+        transition: .5s;
+    }
+
+    .video {
+        position: fixed;
+        right: 50%;
+        top: 0;
+        transform: translateX(50%);
+        object-fit: fill;
+        width: 100%;
+        height: 100%;
+    }
+
+    /*NAVBAR*/
+
+    #navbar {
+        height: 60vh;
+        background-image: url('./textures/UI/Mobile/Mobile_Nobuttons.png');
+        transform: scaleX(100%);
+        height: 65vh;
+        bottom: -65vh;
+    }
+
+    .navBarAnimation {
+        animation-name: none;
+    }
+
+    #mobileToggle {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 2%;
+        width: 30%;
+        height: 15%;
+        transform: translate(-50%, -100%);
+        background-image: url('./textures/UI/Mobile/Mobile_Open.png');
+        background-size: 100% 100%;
+        z-index: 14;
+    }
+
+    .navBarClose {
+        animation-name: navBarClose;
+        animation-duration: 1s;
+        animation-timing-function: cubic-bezier(.75, -0.01, .24, 1);
+        animation-fill-mode: forwards;
+    }
+
+    .navBarOpen {
+        animation-name: navBarOpen;
+        animation-duration: 1s;
+        animation-timing-function: cubic-bezier(.75, -0.01, .24, 1);
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes navBarClose {
+        0% {
+            transform: scaleX(100%);
+            height: 65vh;
+            bottom: 0vh;
+        }
+
+        50% {
+
+            transform: scaleX(80%);
+            height: 78vh;
+            bottom: 0vh;
+        }
+
+        85% {
+            transform: scaleX(120%);
+            height: 50vh;
+            bottom: -50vh;
+        }
+
+        90% {
+            transform: scaleX(110%);
+            height: 60vh;
+            bottom: -60vh;
+        }
+
+        100% {
+            transform: scaleX(100%);
+            height: 65vh;
+            bottom: -65vh;
+        }
+    }
+
+    @keyframes navBarOpen {
+        0% {
+            transform: scaleX(100%);
+            height: 65vh;
+            bottom: -65vh;
+        }
+
+        5% {
+            transform: scaleX(110%);
+            height: 63vh;
+            bottom: -65vh;
+        }
+
+        10% {
+            transform: scaleX(120%);
+            height: 35vh;
+            bottom: -35vh;
+        }
+
+        60% {
+            transform: scaleX(80%);
+            height: 78vh;
+            bottom: 0vh;
+        }
+
+        90% {
+            transform: scaleX(105%);
+            height: 63vh;
+            bottom: 0vh;
+        }
+
+        100% {
+            transform: scaleX(100%);
+            height: 65vh;
+            bottom: 0vh;
+        }
+    }
+
+    #face {
+        width: 23%;
+        height: 19%;
+        top: 15%;
+        left: 12%;
+    }
+
+    #text {
+        width: 73%;
+        height: 21%;
+        top: 57%;
+        left: 14%;
+    }
+
+    #text p {
+        font-size: 20px;
+    }
+
+    #textOverlay {
+        width: 73%;
+        height: 23%;
+        top: 57%;
+        left: 14%;
+    }
+
+    .button {
+        width: 27%;
+        height: 20%;
+    }
+
+    #buttonLeft {
+        top: 2%;
+        left: 44%;
+    }
+
+    #buttonDown {
+        top: 25%;
+        left: 44%;
+    }
+
+    #buttonUp {
+        top: 25%;
+        left: 69%;
+    }
+
+    #buttonRight {
+        top: 2%;
+        left: 69%;
+    }
+
+    @keyframes CornersStartMobile {
+        0% {
+            width: 50%;
+            height: 0;
+        }
+
+        40% {
+            width: 20%;
+            height: 30%;
+        }
+
+        70% {
+            width: 35%;
+            height: 15%;
+        }
+
+        85% {
+            width: 28%;
+            height: 23%;
+        }
+
+        100% {
+            width: 40%;
+            height: 20%;
+        }
+    }
+
+    /*VAULT*/
+
+    #Vault {
+        left: -5%;
+        width: 110%;
+        height: 100%;
+    }
+
+    #listContainer,
+    #listContainer th,
+    #listContainer td {
+        font-family: sans-serif;
+        color: white;
+        border: solid 2px white;
+        width: 100%;
+        text-align: left;
+        border-collapse: collapse;
+        font-size: 18px;
+        empty-cells: show;
+        padding: 2px;
+    }
+
+    /*CONTACT*/
+
+    #Contact {
+        left: -10%;
+        top: 10%;
+        width: 120%;
+        height: 75%;
+    }
+
+    #contactLinks {
+        flex-direction: column;
+        top: 48%;
+        width: 100%;
+        height: 10%;
+        font-size: 20px;
+        align-items: center;
+    }
+
+    /*WORK*/
+
+    #WorkDesktop {
+        display: none;
+    }
+
+    #WorkMobile {
+        display: block;
+        position: absolute;
+        left: -15%;
+        top: 7.5%;
+        width: 130%;
+        height: 80%;
+        z-index: 6;
+        transform: scale(0, 0);
+    }
+
+    #workScroll {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        object-fit: fill;
+        width: 90%;
+        height: 100%;
+    }
+
+    /*PAGE CONTENTS*/
+
+    .contentDiv {
+        position: absolute;
+        top: 15%;
+        width: 50%;
+        height: 71%;
+        text-align: center;
+    }
+
+    #contentMobile {
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 20px;
+    }
+
+    #contentLeft h1 {
+        transform: scaleY(1.2);
+    }
+
+    .goBack {
+        position: relative;
+        left: 50%;
+        width: 50%;
+        transform: translateX(-50%) scaleX(-100%);
+        margin-bottom: 30px;
+    }
+
+    .workLink {
+        line-height: 20px;
+    }
+
+    .workGallery {
+        width: 100%;
+        height: auto;
+        margin: 10px 0 10px 0;
+    }
+}
