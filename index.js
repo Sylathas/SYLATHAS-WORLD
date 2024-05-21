@@ -29,18 +29,21 @@ window.addEventListener('load', function () {
         videoTwo[0].load();
     }
 
-    $('#loading').css('opacity', '0');
-    $('#start').css('opacity', '1');
+    $('#load').css('opacity', '0');
+    setTimeout(() => {
+        $('#start').css('opacity', '1');
+    }, 1000);
 });
 
 $('#start').on('click', () => {
-    $('#loading').css('display', 'none');
+    $('#loading').css('opacity', '0');
     $('#mainContainer').css('display', 'block');
     setTimeout(typeWriter, 1000);
     setTimeout(() => {
+        $('#mainContainer').css('opacity', '1');
+        $('#loading').css('display', 'none');
         videoOne[0].play();
-    }, 100);
-    $('#start, #loading').css('display', 'none');
+    }, 500);
 });
 
 function typeWriter() {
@@ -82,6 +85,11 @@ $("#gameplayOne").on("ended", function () {
         }
     });
     if (roomNum == 0 || roomNum == 5) {
+        $('#cornerLeft, #cornerRight').addClass('cornerAnimation');
+        $('#navbar').addClass('navBarAnimation');
+        if (!mobile) {
+            $('.video').css('height', '80%');
+        }
         arriveRoom(roomText, false);
         $('#buttonUp').addClass("buttonAnimation");
         $('#buttonUp').css("background-image", 'url("./textures/UI/buttons/Up_Active.png")');

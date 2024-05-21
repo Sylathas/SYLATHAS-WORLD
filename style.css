@@ -6,6 +6,18 @@
 
 #loading {
     position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./textures/UI/loading_edges.png');
+    background-size: 100% 100%;
+    margin: 0;
+    transition: .5s;
+}
+
+#load {
+    position: absolute;
     left: 40%;
     top: 40%;
     width: 20%;
@@ -16,14 +28,15 @@
     animation-duration: .5s;
     animation-iteration-count: infinite;
     animation-timing-function: cubic-bezier(.75, -0.01, .24, 1);
+    transition: 1s;
 }
 
 #start {
     opacity: 0;
     position: absolute;
-    left: 30%;
+    left: 35%;
     top: 40%;
-    width: 40%;
+    width: 30%;
     height: 20%;
     background-image: url('./textures/UI/start.jpg');
     background-size: 100% 100%;
@@ -31,6 +44,8 @@
     animation-duration: .5s;
     animation-iteration-count: infinite;
     animation-timing-function: cubic-bezier(.75, -0.01, .24, 1);
+    transition: 1s;
+
 }
 
 @keyframes loading {
@@ -81,16 +96,21 @@ body {
     left: 0;
     bottom: 0;
     background-color: black;
+    transition: .5s;
+    opacity: 0;
 }
 
 .corner {
     position: absolute;
     top: 0;
-    width: 15%;
-    height: 30%;
+    width: 30%;
+    height: 0;
     background-image: url('./textures/UI/desktop/edges.png');
     background-size: 100% 100%;
     z-index: 15;
+}
+
+.cornerAnimation {
     animation-name: CornersStart;
     animation-duration: 1s;
     animation-timing-function: cubic-bezier(.75, -0.01, .24, 1);
@@ -124,7 +144,8 @@ body {
     top: 0;
     object-fit: fill;
     width: 100%;
-    height: 80%;
+    height: 100%;
+    transition: .5s;
 }
 
 #gameplayOne {
@@ -142,7 +163,7 @@ body {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 25vh;
+    height: 0;
     background-image: url('./textures/UI/desktop/Desktop_Nobuttons.png');
     background-size: 100% 100%;
     z-index: 15;
@@ -487,12 +508,22 @@ body {
 #contactLinks {
     display: flex;
     position: absolute;
-    top: 50%;
+    top: 48%;
     left: 50%;
     transform: translateX(-50%);
     width: 50%;
     font-size: 20px;
     justify-content: space-around;
+}
+
+#donationLink {
+    position: absolute;
+    text-align: center;
+    top: 53%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    font-size: 18px;
 }
 
 /*VAULT*/
@@ -601,23 +632,37 @@ body {
     }
 
     #loading {
-        left: 25%;
+        background-image: url('./textures/UI/loading_edgesMobile.png');
+    }
+
+    #load {
+        left: 35%;
+        top: 42.5%;
+        width: 30%;
+        height: 15%;
+    }
+
+    #start {
+        left: 15%;
         top: 40%;
-        width: 50%;
+        width: 70%;
         height: 20%;
     }
 
     /*GENERAL STUFF*/
 
     #mainContainer {
-        height: 90vh;
+        height: 100dvh;
     }
 
 
     .corner {
         pointer-events: none;
         width: 50%;
-        height: 30%;
+        height: 0;
+    }
+
+    .cornerAnimation {
         animation-name: CornersStartMobile;
     }
 
