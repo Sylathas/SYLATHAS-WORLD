@@ -19,6 +19,7 @@
 }
 
 #start {
+    opacity: 0;
     position: absolute;
     left: 30%;
     top: 40%;

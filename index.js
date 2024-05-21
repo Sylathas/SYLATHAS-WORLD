@@ -40,7 +40,7 @@ $('#start').on('click', () => {
     setTimeout(() => {
         videoOne[0].play();
     }, 100);
-    $('#start').css('display', 'none');
+    $('#start, #loading').css('display', 'none');
 });
 
 function typeWriter() {
