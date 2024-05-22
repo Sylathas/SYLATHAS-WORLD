@@ -921,11 +921,16 @@ body {
 
     #contactLinks {
         flex-direction: column;
-        top: 48%;
+        top: 46%;
         width: 100%;
-        height: 10%;
+        height: 8%;
         font-size: 20px;
         align-items: center;
+    }
+
+    #donationLink {
+        width: 80%;
+        top: 55%;
     }
 
     /*WORK*/
