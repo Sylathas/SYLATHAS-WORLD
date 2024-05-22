@@ -332,7 +332,7 @@ $(document).on('click', '.workLink', async function () {
         }
 
         if (mobile) {
-            $('#contentMobile').append(goBack, projectCredits);
+            $('#contentMobile').append(projectCredits, goBack);
         } else {
             $('#contentLeft').append(goBack);
         }
