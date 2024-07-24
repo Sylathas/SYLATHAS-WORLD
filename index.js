@@ -282,6 +282,7 @@ $(document).on('click', '.workLink', async function () {
     target.innerHTML = html;
 
     const projectCredits = document.createElement('p');
+    projectCredits.classList.add('contentCredits');
     text = activeWork.credits,
         target = projectCredits,
         converter = new showdown.Converter(),
