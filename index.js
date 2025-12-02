@@ -22,7 +22,6 @@ function mobileCheck() {
 window.addEventListener('load', function () {
     mobile = mobileCheck();
     if (mobile) {
-        speed = 50;
         $('#mobileToggle').css('display', 'block');
         videoOne[0].src = "./textures/videos/00_StartMobile.mp4";
         videoOne[0].load();
@@ -334,7 +333,7 @@ $(document).on('click', '.workLink', async function () {
         }
 
         if (mobile) {
-            $('#contentMobile').append(projectCredits, goBack);
+            $('#contentMobile').append(goBack, projectCredits);
         } else {
             $('#contentLeft').append(goBack);
         }
@@ -439,13 +438,8 @@ const arriveRoom = (text, util) => {
     if (mobile && navClose) {
         mobileToggle();
     }
-    if (mobile) {
-        speed = 50;
-    } else {
-        speed = 35;
-    }
     movement = false;
-
+    speed = 35;
     if (util) {
         $('#videoContent').css('opacity', '0');
     } else {
