@@ -14,7 +14,6 @@
     background-size: 100% 100%;
     margin: 0;
     transition: .5s;
-    z-index: 1000;
 }
 
 #load {
@@ -68,9 +67,9 @@
 #closePortfolio {
     opacity: 0;
     position: absolute;
-    left: 25%;
+    left: 30%;
     top: 75%;
-    width: 50%;
+    width: 40%;
     height: 15%;
     background-image: url('./textures/UI/closePortfolio.jpg');
     background-size: 100% 100%;
@@ -79,6 +78,7 @@
     animation-iteration-count: infinite;
     animation-timing-function: cubic-bezier(.75, -0.01, .24, 1);
     transition: 1s;
+    z-index: 1000;
 }
 
 @keyframes loading {
