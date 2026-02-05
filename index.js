@@ -65,7 +65,7 @@ $('#openPortfolio').on('click', () => {
         , 500);
 });
 
-$('#openPortfolio').on('click', () => {
+$('#closePortfolio').on('click', () => {
     if (mobile) {
         $('#WorkMobile').addClass('workCloseAnimation');
         $('#WorkMobile').removeClass('workAnimation');
