@@ -4,7 +4,7 @@ import { openIndex, disposePages, pageChange, openVault } from './Components/uti
 let i, roomNum = 0;
 let txt = '';
 let speed = 35;
-let movement, vaultOpened, workOpened, mobile = false;
+let movement, vaultOpened, workOpened, mobile, portfolioFromLoading = false;
 let navClose = true;
 let works, vaults, texts;
 var videoOne = $('#gameplayOne');
@@ -48,9 +48,12 @@ $('#start').on('click', () => {
 });
 
 $('#openPortfolio').on('click', () => {
-    if (!workOpened) {
-        openIndex(works, mobile);
-        workOpened = true;
+    openIndex(works, mobile);
+    workOpened = true;
+    $('#openPortfolio, #start').css('opacity', '0');
+    setTimeout(() => {
+        $('#start, #openPortfolio').css('display', 'none');
+        $('#closePortfolio, #mainContainer').css('opacity', '1');
         if (mobile) {
             $('#WorkMobile').removeClass('workCloseAnimation');
             $('#WorkMobile').addClass('workAnimation');
@@ -58,16 +61,26 @@ $('#openPortfolio').on('click', () => {
             $('#WorkDesktop').removeClass('workCloseAnimation');
             $('#WorkDesktop').addClass('workAnimation');
         }
-    } else {
-        workOpened = false;
-        if (mobile) {
-            $('#WorkMobile').removeClass('workAnimation');
-            $('#WorkMobile').addClass('workCloseAnimation');
-        } else {
-            $('#WorkDesktop').removeClass('workAnimation');
-            $('#WorkDesktop').addClass('workCloseAnimation');
-        }
     }
+        , 500);
+});
+
+$('#openPortfolio').on('click', () => {
+    if (mobile) {
+        $('#WorkMobile').addClass('workCloseAnimation');
+        $('#WorkMobile').removeClass('workAnimation');
+    } else {
+        $('#WorkDesktop').addClass('workCloseAnimation');
+        $('#WorkDesktop').removeClass('workAnimation');
+    }
+    workOpened = false;
+    $('#closePortfolio, #mainContainer').css('opacity', '0');
+    $('#openPortfolio, #start').css('display', 'none');
+    setTimeout(() => {
+        $('#openPortfolio, #start').css('opacity', '1');
+        $('#closePortfolio').css('display', 'none');
+    }
+        , 500);
 });
 
 function typeWriter() {
