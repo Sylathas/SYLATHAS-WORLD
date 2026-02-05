@@ -50,20 +50,15 @@ $('#start').on('click', () => {
 $('#openPortfolio').on('click', () => {
     openIndex(works, mobile);
     workOpened = true;
-    $('#openPortfolio, #start').css('opacity', '0');
     $('#mainContainer').css('display', 'block');
-    setTimeout(() => {
-        $('#start, #openPortfolio').css('display', 'none');
-        $('#closePortfolio, #mainContainer').css('opacity', '1');
-        if (mobile) {
-            $('#WorkMobile').removeClass('workCloseAnimation');
-            $('#WorkMobile').addClass('workAnimation');
-        } else {
-            $('#WorkDesktop').removeClass('workCloseAnimation');
-            $('#WorkDesktop').addClass('workAnimation');
-        }
+    $('#closePortfolio, #mainContainer').css('opacity', '1');
+    if (mobile) {
+        $('#WorkMobile').removeClass('workCloseAnimation');
+        $('#WorkMobile').addClass('workAnimation');
+    } else {
+        $('#WorkDesktop').removeClass('workCloseAnimation');
+        $('#WorkDesktop').addClass('workAnimation');
     }
-        , 500);
 });
 
 $('#closePortfolio').on('click', () => {
@@ -76,9 +71,7 @@ $('#closePortfolio').on('click', () => {
     }
     workOpened = false;
     $('#closePortfolio, #mainContainer').css('opacity', '0');
-    $('#openPortfolio, #start').css('display', 'block');
     setTimeout(() => {
-        $('#openPortfolio, #start').css('opacity', '1');
         $('#closePortfolio, #mainContainer').css('display', 'none');
     }
         , 500);
