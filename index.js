@@ -76,7 +76,7 @@ $('#closePortfolio').on('click', () => {
     }
     workOpened = false;
     $('#closePortfolio, #mainContainer').css('opacity', '0');
-    $('#openPortfolio, #start').css('display', 'none');
+    $('#openPortfolio, #start').css('display', 'block');
     setTimeout(() => {
         $('#openPortfolio, #start').css('opacity', '1');
         $('#closePortfolio, #mainContainer').css('display', 'none');
