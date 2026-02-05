@@ -50,7 +50,7 @@ $('#start').on('click', () => {
 $('#openPortfolio').on('click', () => {
     openIndex(works, mobile);
     workOpened = true;
-    $('#mainContainer').css('display', 'block');
+    $('#mainContainer, #closePortfolio').css('display', 'block');
     $('#closePortfolio, #mainContainer').css('opacity', '1');
     if (mobile) {
         $('#WorkMobile').removeClass('workCloseAnimation');
@@ -62,6 +62,7 @@ $('#openPortfolio').on('click', () => {
 });
 
 $('#closePortfolio').on('click', () => {
+    disposePages();
     if (mobile) {
         $('#WorkMobile').addClass('workCloseAnimation');
         $('#WorkMobile').removeClass('workAnimation');
