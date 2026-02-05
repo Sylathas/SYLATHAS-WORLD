@@ -51,6 +51,7 @@ $('#openPortfolio').on('click', () => {
     openIndex(works, mobile);
     workOpened = true;
     $('#openPortfolio, #start').css('opacity', '0');
+    $('#mainContainer').css('display', 'block');
     setTimeout(() => {
         $('#start, #openPortfolio').css('display', 'none');
         $('#closePortfolio, #mainContainer').css('opacity', '1');
@@ -78,7 +79,7 @@ $('#closePortfolio').on('click', () => {
     $('#openPortfolio, #start').css('display', 'none');
     setTimeout(() => {
         $('#openPortfolio, #start').css('opacity', '1');
-        $('#closePortfolio').css('display', 'none');
+        $('#closePortfolio, #mainContainer').css('display', 'none');
     }
         , 500);
 });
