@@ -3,7 +3,7 @@ var videoWorkReverse = $('#workBookReverse');
 var videoScroll = $('#workScroll');
 
 export const openIndex = (workProjects, mobile) => {
-    const index = '<h1>INDEX</h1><div id="animations"><h3>Animations &#8595;</h3></div><div id="promotional"><h3>Promotional content &#8595;</h3></div><div id="interactive"><h3>Websites &#8595;</h3></div><div id="exhibitions"><h3>Exhibitions &#8595;</h3></div>';
+    const index = '<h1>INDEX</h1><div id="animations"><h3>Animations &#8595;</h3></div><div id="promotional"><h3>Promotional content &#8595;</h3></div><div id="interactive"><h3>Technological Stuff &#8595;</h3></div><div id="exhibitions"><h3>Exhibitions &#8595;</h3></div><div id="publications"><h3>Publications &#8595;</h3></div>';
     if (mobile) {
         $('#contentMobile').append(index);
     } else {
@@ -19,6 +19,8 @@ export const openIndex = (workProjects, mobile) => {
             $('#interactive').append(projectName);
         } else if (work.type == '3Exhibits') {
             $('#exhibitions').append(projectName);
+        } else if (work.type == '4Publications') {
+            $('#publications').append(projectName);
         } else {
             console.log(work.type);
         }

@@ -32,6 +32,7 @@ window.addEventListener('load', function () {
     $('#load').css('opacity', '0');
     setTimeout(() => {
         $('#start').css('opacity', '1');
+        $('#openPortfolio').css('opacity', '1');
     }, 1000);
 });
 
@@ -44,6 +45,29 @@ $('#start').on('click', () => {
         $('#loading').css('display', 'none');
         videoOne[0].play();
     }, 500);
+});
+
+$('#openPortfolio').on('click', () => {
+    if (!workOpened) {
+        openIndex(works, mobile);
+        workOpened = true;
+        if (mobile) {
+            $('#WorkMobile').removeClass('workCloseAnimation');
+            $('#WorkMobile').addClass('workAnimation');
+        } else {
+            $('#WorkDesktop').removeClass('workCloseAnimation');
+            $('#WorkDesktop').addClass('workAnimation');
+        }
+    } else {
+        workOpened = false;
+        if (mobile) {
+            $('#WorkMobile').removeClass('workAnimation');
+            $('#WorkMobile').addClass('workCloseAnimation');
+        } else {
+            $('#WorkDesktop').removeClass('workAnimation');
+            $('#WorkDesktop').addClass('workCloseAnimation');
+        }
+    }
 });
 
 function typeWriter() {
