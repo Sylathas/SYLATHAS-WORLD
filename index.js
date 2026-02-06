@@ -303,13 +303,12 @@ $(document).on('click', '.workLink', async function () {
     //Get clicked Project
     let activeWork;
     for await (const work of works) {
-        if (work.project_title == $(this).text()) {
+        if (work.project_title == $(this).text().slice(7)) {
             activeWork = work;
         }
     }
 
     //Create text elements
-    console.log(activeWork);
     const projectTitle = '<h1>' + activeWork.project_title + '</h1>';
 
     const projectText = document.createElement('p');
