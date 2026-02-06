@@ -461,6 +461,7 @@
                             <thead>
                                 <tr>
                                     <th>Title</th>
+                                    <th>Year</th>
                                     <th>Type</th>
                                 </tr>
                             </thead>
@@ -474,6 +475,9 @@
 
                     <label for="work-title">Project title</label>
                     <input id="work-title" type="text">
+
+                    <label for="work-year">Year</label>
+                    <input id="work-year" type="text" placeholder="e.g. 2024">
 
                     <label for="work-type">Type</label>
                     <select id="work-type">
@@ -976,6 +980,7 @@
                     const tr = document.createElement("tr");
                     tr.innerHTML = `
                         <td>${docData.project_title || ""}</td>
+                        <td>${docData.year || ""}</td>
                         <td><span class="pill mono">${docData.type || ""}</span></td>
                     `;
                     tr.addEventListener("click", () => selectWorkDoc(docData.id));
@@ -989,6 +994,7 @@
             if (!docData) return;
             $("work-id").value = docData.id;
             $("work-title").value = docData.project_title || "";
+            $("work-year").value = docData.year || "";
             $("work-type").value = docData.type || "0Animations";
             $("work-description").value = docData.description_of_project || "";
             $("work-credits").value = docData.credits || "";
@@ -999,6 +1005,7 @@
         $("work-new").addEventListener("click", () => {
             $("work-id").value = "";
             $("work-title").value = "";
+            $("work-year").value = "";
             $("work-type").value = "0Animations";
             $("work-description").value = "";
             $("work-credits").value = "";
@@ -1013,6 +1020,7 @@
             const id = $("work-id").value.trim();
             const data = {
                 project_title: $("work-title").value.trim(),
+                year: $("work-year").value.trim(),
                 type: $("work-type").value,
                 description_of_project: $("work-description").value,
                 credits: $("work-credits").value,
@@ -1050,6 +1058,7 @@
                 await deleteDoc(doc(db, "work", id));
                 $("work-id").value = "";
                 $("work-title").value = "";
+                $("work-year").value = "";
                 $("work-type").value = "0Animations";
                 $("work-description").value = "";
                 $("work-credits").value = "";

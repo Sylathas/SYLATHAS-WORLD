@@ -9,7 +9,18 @@ export const openIndex = (workProjects, mobile) => {
     } else {
         $('#contentLeft').append(index);
     }
-    workProjects.forEach(work => {
+
+    // Sort projects by year (descending, newest first), then by title
+    const sortedProjects = [...workProjects].sort((a, b) => {
+        const yearA = parseInt(a.year) || 0;
+        const yearB = parseInt(b.year) || 0;
+        if (yearB !== yearA) {
+            return yearB - yearA; // Descending year order
+        }
+        return (a.project_title || "").localeCompare(b.project_title || "");
+    });
+
+    sortedProjects.forEach(work => {
         const projectName = '<p class="workLink">' + work.project_title + '</p>';
         if (work.type == '0Animations') {
             $('#animations').append(projectName);
