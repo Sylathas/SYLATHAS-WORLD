@@ -696,7 +696,22 @@ body {
 
     #start {
         left: 15%;
-        top: 40%;
+        top: 25%;
+        width: 70%;
+        height: 20%;
+    }
+
+    #openPortfolio {
+        left: 15%;
+        bottom: 25%;
+        width: 70%;
+        height: 20%;
+    }
+
+    #closePortfolio {
+        opacity: 0;
+        left: 15%;
+        bottom: 10%;
         width: 70%;
         height: 20%;
     }

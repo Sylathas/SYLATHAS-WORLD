@@ -51,14 +51,18 @@ $('#openPortfolio').on('click', () => {
     openIndex(works, mobile);
     workOpened = true;
     $('#mainContainer, #closePortfolio').css('display', 'block');
-    $('#closePortfolio, #mainContainer').css('opacity', '1');
+    $('#openPortfolio, #start').css('opacity', '0');
     if (mobile) {
+        $('#mobileToggle').css('display', 'none');
         $('#WorkMobile').removeClass('workCloseAnimation');
         $('#WorkMobile').addClass('workAnimation');
     } else {
         $('#WorkDesktop').removeClass('workCloseAnimation');
         $('#WorkDesktop').addClass('workAnimation');
     }
+    setTimeout(() => {
+        $('#closePortfolio, #mainContainer').css('opacity', '1');
+    }, 500);
 });
 
 $('#closePortfolio').on('click', () => {
@@ -73,7 +77,9 @@ $('#closePortfolio').on('click', () => {
     workOpened = false;
     $('#closePortfolio, #mainContainer').css('opacity', '0');
     setTimeout(() => {
+        $('#openPortfolio, #start').css('opacity', '1');
         $('#closePortfolio, #mainContainer').css('display', 'none');
+        $('#mobileToggle').css('display', 'block');
     }
         , 500);
 });
