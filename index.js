@@ -309,6 +309,7 @@ $(document).on('click', '.workLink', async function () {
     }
 
     //Create text elements
+    console.log(activeWork);
     const projectTitle = '<h1>' + activeWork.project_title + '</h1>';
 
     const projectText = document.createElement('p');
