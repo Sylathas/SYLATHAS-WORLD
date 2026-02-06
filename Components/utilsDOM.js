@@ -21,7 +21,7 @@ export const openIndex = (workProjects, mobile) => {
     });
 
     sortedProjects.forEach(work => {
-        const projectName = '<p class="workLink">' + work.project_title + '</p>';
+        const projectName = '<p class="workLink">' + work.year + ' - ' + work.project_title + '</p>';
         if (work.type == '0Animations') {
             $('#animations').append(projectName);
         } else if (work.type == '1PromotionalContent') {
