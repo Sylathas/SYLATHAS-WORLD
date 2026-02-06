@@ -48,7 +48,7 @@ $('#start').on('click', () => {
 });
 
 $('#openPortfolio').on('click', () => {
-    openIndex(works, mobile);
+    openIndex(works, mobile, texts);
     workOpened = true;
     $('#mainContainer, #closePortfolio').css('display', 'block');
     $('#openPortfolio, #start').css('opacity', '0');
@@ -154,7 +154,7 @@ $("#gameplayOne").on("ended", function () {
             }
         }, 400);
         if (!workOpened) {
-            openIndex(works, mobile);
+            openIndex(works, mobile, texts);
             workOpened = true;
         }
     } else if (roomNum == 3) {
@@ -389,7 +389,7 @@ $(document).on('click', '.goBack', async function () {
     } else {
         time = 800;
     }
-    setTimeout(() => { openIndex(works, mobile) }, time);
+    setTimeout(() => { openIndex(works, mobile, texts) }, time);
 });
 
 //////////////////////

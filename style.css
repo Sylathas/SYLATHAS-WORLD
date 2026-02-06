@@ -506,6 +506,12 @@ body {
     right: 15%;
 }
 
+.year {
+    display: inline-block;
+    transform: scale(0.8, 1.2);
+    color: black;
+}
+
 .goBack {
     position: relative;
     left: 0;
