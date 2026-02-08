@@ -2,7 +2,7 @@ var videoWork = $('#workBook');
 var videoWorkReverse = $('#workBookReverse');
 var videoScroll = $('#workScroll');
 
-export const openIndex = (workProjects, mobile, texts) => {
+export const openIndex = (workProjects, mobile) => {
     //left page
     const index = '<h1>INDEX</h1><div id="animations"><h3>Animations &#8595;</h3></div><div id="interactive"><h3>Technological Stuff &#8595;</h3></div><div id="exhibitions"><h3>Exhibitions &#8595;</h3></div><div id="publications"><h3>Publications &#8595;</h3></div><div id="promotional"><h3>Promotional content &#8595;</h3></div>';
     if (mobile) {
@@ -22,7 +22,8 @@ export const openIndex = (workProjects, mobile, texts) => {
     });
 
     sortedProjects.forEach(work => {
-        const projectName = '<p class="workLink"><span class="year">' + work.year + '</span> ' + work.project_title + '</p>';
+        const yearDisplay = work.year ? '<span class="year">' + work.year + '</span> ' : '';
+        const projectName = '<p class="workLink" data-project-title="' + (work.project_title || '').replace(/"/g, '&quot;') + '">' + yearDisplay + work.project_title + '</p>';
         if (work.type == '0Animations') {
             $('#animations').append(projectName);
         } else if (work.type == '1PromotionalContent') {
@@ -46,7 +47,7 @@ export const disposePages = () => {
 export const pageChange = (direction, mobile) => {
     if (mobile) {
         videoScroll[0].play();
-    } {
+    } else {
         if (direction) {
             videoWorkReverse.css('display', 'none');
             videoWork.css('display', 'block');

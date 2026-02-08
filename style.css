@@ -588,9 +588,9 @@ body {
 
 #Vault {
     position: absolute;
-    left: 12.5%;
+    left: 7.5%;
     top: 0;
-    width: 75%;
+    width: 85%;
     height: 75%;
     z-index: 6;
     transform: scale(0, 0);
@@ -601,10 +601,10 @@ body {
 #tableContainer {
     position: absolute;
     left: 50%;
-    top: 37%;
+    top: 28%;
     transform: translateX(-50%);
-    width: 55%;
-    height: 48%;
+    width: 60%;
+    height: 58%;
     background-color: black;
     overflow-y: scroll;
 }

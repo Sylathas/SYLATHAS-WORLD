@@ -48,7 +48,7 @@ $('#start').on('click', () => {
 });
 
 $('#openPortfolio').on('click', () => {
-    openIndex(works, mobile, texts);
+    openIndex(works, mobile);
     workOpened = true;
     $('#mainContainer, #closePortfolio').css('display', 'block');
     $('#openPortfolio, #start').css('opacity', '0');
@@ -154,7 +154,7 @@ $("#gameplayOne").on("ended", function () {
             }
         }, 400);
         if (!workOpened) {
-            openIndex(works, mobile, texts);
+            openIndex(works, mobile);
             workOpened = true;
         }
     } else if (roomNum == 3) {
@@ -206,13 +206,8 @@ $('#buttonDown').on('click', () => {
             moveRoom('./textures/videos/02_toMansionReverseMobile.mp4', './textures/videos/01_StillMobile.mp4', 5);
         } else if (roomNum == 2) {
             moveRoom('./textures/videos/04_toWorkReverseMobile.mp4', './textures/videos/03_MansionMobile.mp4', 6);
-            if (mobile) {
-                $('#WorkMobile').removeClass('workAnimation');
-                $('#WorkMobile').addClass('workCloseAnimation');
-            } else {
-                $('#WorkDesktop').removeClass('workAnimation');
-                $('#WorkDesktop').addClass('workCloseAnimation');
-            }
+            $('#WorkMobile').removeClass('workAnimation');
+            $('#WorkMobile').addClass('workCloseAnimation');
             setTimeout(() => {
                 $('#videoContent').css('opacity', '1');
             }, 500);
@@ -236,13 +231,8 @@ $('#buttonDown').on('click', () => {
             moveRoom('./textures/videos/02_toMansionReverse.mp4', './textures/videos/01_Still.mp4', 5);
         } else if (roomNum == 2) {
             moveRoom('./textures/videos/04_toWorkReverse.mp4', './textures/videos/03_Mansion.mp4', 6);
-            if (mobile) {
-                $('#WorkMobile').removeClass('workAnimation');
-                $('#WorkMobile').addClass('workCloseAnimation');
-            } else {
-                $('#WorkDesktop').removeClass('workAnimation');
-                $('#WorkDesktop').addClass('workCloseAnimation');
-            }
+            $('#WorkDesktop').removeClass('workAnimation');
+            $('#WorkDesktop').addClass('workCloseAnimation');
             setTimeout(() => {
                 $('#videoContent').css('opacity', '1');
             }, 400);
@@ -302,11 +292,12 @@ $(document).on('click', '.workLink', async function () {
     disposePages();
     pageChange(true, mobile);
     //Get clicked Project
-    let activeWork;
-    for await (const work of works) {
-        if (work.project_title == $(this).text().slice(7)) {
-            activeWork = work;
-        }
+    const clickedTitle = $(this).attr('data-project-title') || $(this).text().replace(/^\d{4}\s*-\s*/, '').trim();
+    const activeWork = works.find(work => work.project_title === clickedTitle);
+
+    if (!activeWork) {
+        console.error('Project not found:', clickedTitle);
+        return;
     }
 
     //Create text elements
@@ -350,23 +341,31 @@ $(document).on('click', '.workLink', async function () {
 
         //Create image and video elements
         if (activeWork.youtube_ur_ls) {
-            activeWork.youtube_ur_ls.split("\n").forEach((url) => {
-                const youtubeLink = "<iframe class='youtube' src='" + url + "'></iframe>";
-                if (mobile) {
-                    $('#contentMobile').append(youtubeLink);
-                } else {
-                    $('#contentRight').append(youtubeLink);
+            const youtubeUrls = typeof activeWork.youtube_ur_ls === 'string'
+                ? activeWork.youtube_ur_ls.split("\n").filter(url => url.trim())
+                : Array.isArray(activeWork.youtube_ur_ls) ? activeWork.youtube_ur_ls : [];
+
+            youtubeUrls.forEach((url) => {
+                if (url.trim()) {
+                    const youtubeLink = "<iframe class='youtube' src='" + url.trim() + "'></iframe>";
+                    if (mobile) {
+                        $('#contentMobile').append(youtubeLink);
+                    } else {
+                        $('#contentRight').append(youtubeLink);
+                    }
                 }
             });
         }
 
-        if (activeWork.images) {
+        if (activeWork.images && Array.isArray(activeWork.images)) {
             activeWork.images.forEach((url) => {
-                const imageLink = "<img class='workGallery' src='" + url + "' />";
-                if (mobile) {
-                    $('#contentMobile').append(imageLink);
-                } else {
-                    $('#contentRight').append(imageLink);
+                if (url) {
+                    const imageLink = "<img class='workGallery' src='" + url + "' />";
+                    if (mobile) {
+                        $('#contentMobile').append(imageLink);
+                    } else {
+                        $('#contentRight').append(imageLink);
+                    }
                 }
             });
         }
@@ -389,7 +388,7 @@ $(document).on('click', '.goBack', async function () {
     } else {
         time = 800;
     }
-    setTimeout(() => { openIndex(works, mobile, texts) }, time);
+    setTimeout(() => { openIndex(works, mobile) }, time);
 });
 
 //////////////////////
@@ -403,12 +402,12 @@ $(document).on('click', '.vaultLink', async function () {
     $('#blogContainer').css('display', 'block');
 
     //Get clicked Project
-    let activeVault;
-    for await (const vault of vaults) {
-        console.log($(this).html(), vault.title);
-        if (vault.title == $(this).text()) {
-            activeVault = vault;
-        }
+    const clickedTitle = $(this).text().trim();
+    const activeVault = vaults.find(vault => vault.title === clickedTitle);
+
+    if (!activeVault) {
+        console.error('Vault item not found:', clickedTitle);
+        return;
     }
 
     //Create text elements
@@ -431,10 +430,12 @@ $(document).on('click', '.vaultLink', async function () {
 
     $('#blogContainer').append(projectTitle, projectText, projectDownload);
 
-    activeVault.images.forEach((image) => {
-        const projectImage = '<div class="blogImage" style="background-image: url(' + image + ')"></div>';
-        $('#blogContainer').append(projectImage);
-    });
+    if (activeVault.images && Array.isArray(activeVault.images)) {
+        activeVault.images.forEach((image) => {
+            const projectImage = '<div class="blogImage" style="background-image: url(' + image + ')"></div>';
+            $('#blogContainer').append(projectImage);
+        });
+    }
 
     //Create goBack element
     const goBack = '<div class="goBackVault"></div>'
@@ -513,20 +514,13 @@ const arriveRoom = (text, util) => {
 //////////////////////
 
 const fetchData = async () => {
-    await TextData()
-        .then((response) => {
-            texts = response;
-        });
-
-    await WorkData()
-        .then((response) => {
-            works = response;
-        });
-
-    await VaultData()
-        .then((response) => {
-            vaults = response;
-        });
+    try {
+        texts = await TextData();
+        works = await WorkData();
+        vaults = await VaultData();
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
 }
 
 fetchData();
