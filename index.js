@@ -28,13 +28,15 @@ window.addEventListener('load', function () {
         videoTwo[0].src = './textures/videos/01_StillMobile.mp4';
         videoTwo[0].load();
     }
+});
 
+function startWebsite() {
     $('#load').css('opacity', '0');
     setTimeout(() => {
         $('#start').css('opacity', '1');
         $('#openPortfolio').css('opacity', '1');
     }, 1000);
-});
+}
 
 $('#start').on('click', () => {
     $('#loading').css('opacity', '0');
@@ -48,7 +50,7 @@ $('#start').on('click', () => {
 });
 
 $('#openPortfolio').on('click', () => {
-    openIndex(works, mobile);
+    openIndex(works, mobile, texts);
     workOpened = true;
     $('#mainContainer, #closePortfolio').css('display', 'block');
     $('#openPortfolio, #start').css('opacity', '0');
@@ -154,7 +156,7 @@ $("#gameplayOne").on("ended", function () {
             }
         }, 400);
         if (!workOpened) {
-            openIndex(works, mobile);
+            openIndex(works, mobile, texts);
             workOpened = true;
         }
     } else if (roomNum == 3) {
@@ -206,8 +208,13 @@ $('#buttonDown').on('click', () => {
             moveRoom('./textures/videos/02_toMansionReverseMobile.mp4', './textures/videos/01_StillMobile.mp4', 5);
         } else if (roomNum == 2) {
             moveRoom('./textures/videos/04_toWorkReverseMobile.mp4', './textures/videos/03_MansionMobile.mp4', 6);
-            $('#WorkMobile').removeClass('workAnimation');
-            $('#WorkMobile').addClass('workCloseAnimation');
+            if (mobile) {
+                $('#WorkMobile').removeClass('workAnimation');
+                $('#WorkMobile').addClass('workCloseAnimation');
+            } else {
+                $('#WorkDesktop').removeClass('workAnimation');
+                $('#WorkDesktop').addClass('workCloseAnimation');
+            }
             setTimeout(() => {
                 $('#videoContent').css('opacity', '1');
             }, 500);
@@ -231,8 +238,13 @@ $('#buttonDown').on('click', () => {
             moveRoom('./textures/videos/02_toMansionReverse.mp4', './textures/videos/01_Still.mp4', 5);
         } else if (roomNum == 2) {
             moveRoom('./textures/videos/04_toWorkReverse.mp4', './textures/videos/03_Mansion.mp4', 6);
-            $('#WorkDesktop').removeClass('workAnimation');
-            $('#WorkDesktop').addClass('workCloseAnimation');
+            if (mobile) {
+                $('#WorkMobile').removeClass('workAnimation');
+                $('#WorkMobile').addClass('workCloseAnimation');
+            } else {
+                $('#WorkDesktop').removeClass('workAnimation');
+                $('#WorkDesktop').addClass('workCloseAnimation');
+            }
             setTimeout(() => {
                 $('#videoContent').css('opacity', '1');
             }, 400);
@@ -292,12 +304,11 @@ $(document).on('click', '.workLink', async function () {
     disposePages();
     pageChange(true, mobile);
     //Get clicked Project
-    const clickedTitle = $(this).attr('data-project-title') || $(this).text().replace(/^\d{4}\s*-\s*/, '').trim();
-    const activeWork = works.find(work => work.project_title === clickedTitle);
-
-    if (!activeWork) {
-        console.error('Project not found:', clickedTitle);
-        return;
+    let activeWork;
+    for await (const work of works) {
+        if (work.project_title == $(this).text().slice(5)) {
+            activeWork = work;
+        }
     }
 
     //Create text elements
@@ -341,37 +352,29 @@ $(document).on('click', '.workLink', async function () {
 
         //Create image and video elements
         if (activeWork.youtube_ur_ls) {
-            const youtubeUrls = typeof activeWork.youtube_ur_ls === 'string'
-                ? activeWork.youtube_ur_ls.split("\n").filter(url => url.trim())
-                : Array.isArray(activeWork.youtube_ur_ls) ? activeWork.youtube_ur_ls : [];
-
-            youtubeUrls.forEach((url) => {
-                if (url.trim()) {
-                    const youtubeLink = "<iframe class='youtube' src='" + url.trim() + "'></iframe>";
-                    if (mobile) {
-                        $('#contentMobile').append(youtubeLink);
-                    } else {
-                        $('#contentRight').append(youtubeLink);
-                    }
+            activeWork.youtube_ur_ls.split("\n").forEach((url) => {
+                const youtubeLink = "<iframe class='youtube' src='" + url + "'></iframe>";
+                if (mobile) {
+                    $('#contentMobile').append(youtubeLink);
+                } else {
+                    $('#contentRight').append(youtubeLink);
                 }
             });
         }
 
-        if (activeWork.images && Array.isArray(activeWork.images)) {
+        if (activeWork.images) {
             activeWork.images.forEach((url) => {
-                if (url) {
-                    const imageLink = "<img class='workGallery' src='" + url + "' />";
-                    if (mobile) {
-                        $('#contentMobile').append(imageLink);
-                    } else {
-                        $('#contentRight').append(imageLink);
-                    }
+                const imageLink = "<img class='workGallery' src='" + url + "' />";
+                if (mobile) {
+                    $('#contentMobile').append(imageLink);
+                } else {
+                    $('#contentRight').append(imageLink);
                 }
             });
         }
 
         if (mobile) {
-            $('#contentMobile').append(goBack, projectCredits);
+            $('#contentMobile').append(projectCredits, goBack);
         } else {
             $('#contentLeft').append(goBack);
         }
@@ -388,7 +391,7 @@ $(document).on('click', '.goBack', async function () {
     } else {
         time = 800;
     }
-    setTimeout(() => { openIndex(works, mobile) }, time);
+    setTimeout(() => { openIndex(works, mobile, texts) }, time);
 });
 
 //////////////////////
@@ -402,12 +405,12 @@ $(document).on('click', '.vaultLink', async function () {
     $('#blogContainer').css('display', 'block');
 
     //Get clicked Project
-    const clickedTitle = $(this).text().trim();
-    const activeVault = vaults.find(vault => vault.title === clickedTitle);
-
-    if (!activeVault) {
-        console.error('Vault item not found:', clickedTitle);
-        return;
+    let activeVault;
+    for await (const vault of vaults) {
+        console.log($(this).html(), vault.title);
+        if (vault.title == $(this).text()) {
+            activeVault = vault;
+        }
     }
 
     //Create text elements
@@ -430,12 +433,10 @@ $(document).on('click', '.vaultLink', async function () {
 
     $('#blogContainer').append(projectTitle, projectText, projectDownload);
 
-    if (activeVault.images && Array.isArray(activeVault.images)) {
-        activeVault.images.forEach((image) => {
-            const projectImage = '<div class="blogImage" style="background-image: url(' + image + ')"></div>';
-            $('#blogContainer').append(projectImage);
-        });
-    }
+    activeVault.images.forEach((image) => {
+        const projectImage = '<div class="blogImage" style="background-image: url(' + image + ')"></div>';
+        $('#blogContainer').append(projectImage);
+    });
 
     //Create goBack element
     const goBack = '<div class="goBackVault"></div>'
@@ -514,13 +515,21 @@ const arriveRoom = (text, util) => {
 //////////////////////
 
 const fetchData = async () => {
-    try {
-        texts = await TextData();
-        works = await WorkData();
-        vaults = await VaultData();
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
+    await TextData()
+        .then((response) => {
+            texts = response;
+        });
+
+    await WorkData()
+        .then((response) => {
+            works = response;
+            startWebsite();
+        });
+
+    await VaultData()
+        .then((response) => {
+            vaults = response;
+        });
 }
 
 fetchData();

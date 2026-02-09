@@ -22,8 +22,7 @@ export const openIndex = (workProjects, mobile) => {
     });
 
     sortedProjects.forEach(work => {
-        const yearDisplay = work.year ? '<span class="year">' + work.year + '</span> ' : '';
-        const projectName = '<p class="workLink" data-project-title="' + (work.project_title || '').replace(/"/g, '&quot;') + '">' + yearDisplay + work.project_title + '</p>';
+        const projectName = '<p class="workLink"><span class="year">' + work.year + '</span> ' + work.project_title + '</p>';
         if (work.type == '0Animations') {
             $('#animations').append(projectName);
         } else if (work.type == '1PromotionalContent') {
@@ -47,7 +46,7 @@ export const disposePages = () => {
 export const pageChange = (direction, mobile) => {
     if (mobile) {
         videoScroll[0].play();
-    } else {
+    } {
         if (direction) {
             videoWorkReverse.css('display', 'none');
             videoWork.css('display', 'block');

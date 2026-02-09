@@ -226,118 +226,16 @@
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
             font-size: 0.75rem;
         }
-
-        .auth-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: calc(100vh - 80px);
-            padding: 2rem;
-        }
-
-        .auth-box {
-            background: #1f2833;
-            border-radius: 10px;
-            padding: 2rem;
-            max-width: 400px;
-            width: 100%;
-            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
-        }
-
-        .auth-box h2 {
-            margin-top: 0;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .auth-box input[type="email"],
-        .auth-box input[type="password"] {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 0.6rem 0.7rem;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: rgba(0, 0, 0, 0.35);
-            color: inherit;
-            font-family: inherit;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .auth-box button {
-            width: 100%;
-            margin-top: 0.5rem;
-        }
-
-        .auth-error {
-            background: rgba(195, 7, 63, 0.2);
-            border: 1px solid #c3073f;
-            color: #f5f5f5;
-            padding: 0.6rem;
-            border-radius: 6px;
-            margin-bottom: 1rem;
-            font-size: 0.85rem;
-        }
-
-        .auth-success {
-            background: rgba(69, 162, 158, 0.2);
-            border: 1px solid #45a29e;
-            color: #f5f5f5;
-            padding: 0.6rem;
-            border-radius: 6px;
-            margin-bottom: 1rem;
-            font-size: 0.85rem;
-        }
-
-        .sign-out-btn {
-            background: transparent;
-            color: #c5c6c7;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-
-        .sign-out-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .admin-content {
-            display: none;
-        }
-
-        .admin-content.authenticated {
-            display: block;
-        }
     </style>
 </head>
 
 <body>
     <header>
         <h1>Sylathas World – Admin</h1>
-        <div style="display: flex; align-items: center; gap: 1rem;">
-            <span id="user-email" style="display: none; font-size: 0.8rem; opacity: 0.8;"></span>
-            <button id="sign-out-btn" class="sign-out-btn" style="display: none;">Sign Out</button>
-            <span id="header-warning">Be careful: this edits live Firestore data.</span>
-        </div>
+        <span>Be careful: this edits live Firestore data.</span>
     </header>
 
-    <!-- Authentication Section -->
-    <div id="auth-container" class="auth-container">
-        <div class="auth-box">
-            <h2>Admin Login</h2>
-            <div id="auth-message"></div>
-            <label for="auth-email">Email</label>
-            <input id="auth-email" type="email" placeholder="your@email.com" autocomplete="email">
-            <label for="auth-password">Password</label>
-            <input id="auth-password" type="password" placeholder="••••••••" autocomplete="current-password">
-            <button class="btn" id="auth-sign-in">Sign In</button>
-        </div>
-    </div>
-
-    <!-- Admin Content (hidden until authenticated) -->
-    <main id="admin-content" class="admin-content">
+    <main>
         <div class="tabs">
             <button class="tab-btn active" data-target="rooms-section">Room texts</button>
             <button class="tab-btn" data-target="vault-section">Vault</button>
@@ -461,7 +359,6 @@
                             <thead>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Year</th>
                                     <th>Type</th>
                                 </tr>
                             </thead>
@@ -475,9 +372,6 @@
 
                     <label for="work-title">Project title</label>
                     <input id="work-title" type="text">
-
-                    <label for="work-year">Year</label>
-                    <input id="work-year" type="text" placeholder="e.g. 2024">
 
                     <label for="work-type">Type</label>
                     <select id="work-type">
@@ -528,146 +422,11 @@
             serverTimestamp
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
-        import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { db, auth } from "./firebase.js";
-
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/4443438e-daa7-4d6e-acaa-156e981e71a6', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'admin.html:528', message: 'Firebase imports loaded', data: { authExists: !!auth, dbExists: !!db }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'B' }) }).catch(() => { });
-        // #endregion
+        import { db } from "./firebase.js";
 
         const storage = getStorage();
 
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/4443438e-daa7-4d6e-acaa-156e981e71a6', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'admin.html:530', message: 'Storage initialized', data: { storageExists: !!storage }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'E' }) }).catch(() => { });
-        // #endregion
-
         const $ = (id) => document.getElementById(id);
-
-        // Authentication state management
-        let currentUser = null;
-
-        const showAuthMessage = (message, isError = false) => {
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/4443438e-daa7-4d6e-acaa-156e981e71a6', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'admin.html:537', message: 'showAuthMessage called', data: { message, isError }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'A' }) }).catch(() => { });
-            // #endregion
-            const msgEl = $("auth-message");
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/4443438e-daa7-4d6e-acaa-156e981e71a6', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'admin.html:540', message: 'auth-message element check', data: { elementExists: !!msgEl }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'A' }) }).catch(() => { });
-            // #endregion
-            if (!msgEl) return;
-            msgEl.textContent = message;
-            msgEl.className = isError ? "auth-error" : "auth-success";
-            msgEl.style.display = message ? "block" : "none";
-        };
-
-        const updateUI = (user) => {
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/4443438e-daa7-4d6e-acaa-156e981e71a6', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'admin.html:544', message: 'updateUI called', data: { userExists: !!user, userEmail: user?.email }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'C' }) }).catch(() => { });
-            // #endregion
-            currentUser = user;
-            const authContainer = $("auth-container");
-            const adminContent = $("admin-content");
-            const signOutBtn = $("sign-out-btn");
-            const userEmail = $("user-email");
-            const headerWarning = $("header-warning");
-
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/4443438e-daa7-4d6e-acaa-156e981e71a6', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'admin.html:551', message: 'DOM elements check in updateUI', data: { authContainer: !!authContainer, adminContent: !!adminContent, signOutBtn: !!signOutBtn, userEmail: !!userEmail, headerWarning: !!headerWarning }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'D' }) }).catch(() => { });
-            // #endregion
-
-            if (user) {
-                // User is signed in
-                authContainer.style.display = "none";
-                adminContent.classList.add("authenticated");
-                signOutBtn.style.display = "block";
-                userEmail.textContent = user.email;
-                userEmail.style.display = "block";
-                headerWarning.style.display = "none";
-            } else {
-                // User is signed out
-                authContainer.style.display = "flex";
-                adminContent.classList.remove("authenticated");
-                signOutBtn.style.display = "none";
-                userEmail.style.display = "none";
-                headerWarning.style.display = "block";
-                showAuthMessage("");
-            }
-        };
-
-        // Sign in handler
-        const signInBtn = $("auth-sign-in");
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/4443438e-daa7-4d6e-acaa-156e981e71a6', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'admin.html:572', message: 'Checking auth-sign-in element before listener', data: { elementExists: !!signInBtn }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'F' }) }).catch(() => { });
-        // #endregion
-        if (signInBtn) {
-            signInBtn.addEventListener("click", async () => {
-                const email = $("auth-email").value.trim();
-                const password = $("auth-password").value;
-
-                if (!email || !password) {
-                    showAuthMessage("Please enter both email and password.", true);
-                    return;
-                }
-
-                try {
-                    showAuthMessage("Signing in...", false);
-                    await signInWithEmailAndPassword(auth, email, password);
-                    showAuthMessage("Successfully signed in!");
-                    $("auth-email").value = "";
-                    $("auth-password").value = "";
-                } catch (error) {
-                    console.error("Sign in error:", error);
-                    let errorMessage = "Failed to sign in. ";
-                    if (error.code === "auth/user-not-found") {
-                        errorMessage += "User not found.";
-                    } else if (error.code === "auth/wrong-password") {
-                        errorMessage += "Incorrect password.";
-                    } else if (error.code === "auth/invalid-email") {
-                        errorMessage += "Invalid email address.";
-                    } else if (error.code === "auth/user-disabled") {
-                        errorMessage += "This account has been disabled.";
-                    } else {
-                        errorMessage += error.message;
-                    }
-                    showAuthMessage(errorMessage, true);
-                }
-            });
-        } else {
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/4443438e-daa7-4d6e-acaa-156e981e71a6', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'admin.html:603', message: 'ERROR: auth-sign-in element not found', data: {}, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'F' }) }).catch(() => { });
-            // #endregion
-        }
-
-        // Sign out handler
-        const signOutBtnEl = $("sign-out-btn");
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/4443438e-daa7-4d6e-acaa-156e981e71a6', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'admin.html:606', message: 'Checking sign-out-btn element before listener', data: { elementExists: !!signOutBtnEl }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'F' }) }).catch(() => { });
-        // #endregion
-        if (signOutBtnEl) {
-            signOutBtnEl.addEventListener("click", async () => {
-                try {
-                    await signOut(auth);
-                    showAuthMessage("Successfully signed out.");
-                } catch (error) {
-                    console.error("Sign out error:", error);
-                    showAuthMessage("Error signing out: " + error.message, true);
-                }
-            });
-        }
-
-        // Enter key support for login form
-        const authPasswordEl = $("auth-password");
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/4443438e-daa7-4d6e-acaa-156e981e71a6', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'admin.html:617', message: 'Checking auth-password element before listener', data: { elementExists: !!authPasswordEl }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'F' }) }).catch(() => { });
-        // #endregion
-        if (authPasswordEl) {
-            authPasswordEl.addEventListener("keypress", (e) => {
-                if (e.key === "Enter") {
-                    $("auth-sign-in")?.click();
-                }
-            });
-        }
-
 
         const formatDate = (ts) => {
             if (!ts) return "";
@@ -980,7 +739,6 @@
                     const tr = document.createElement("tr");
                     tr.innerHTML = `
                         <td>${docData.project_title || ""}</td>
-                        <td>${docData.year || ""}</td>
                         <td><span class="pill mono">${docData.type || ""}</span></td>
                     `;
                     tr.addEventListener("click", () => selectWorkDoc(docData.id));
@@ -994,7 +752,6 @@
             if (!docData) return;
             $("work-id").value = docData.id;
             $("work-title").value = docData.project_title || "";
-            $("work-year").value = docData.year || "";
             $("work-type").value = docData.type || "0Animations";
             $("work-description").value = docData.description_of_project || "";
             $("work-credits").value = docData.credits || "";
@@ -1005,7 +762,6 @@
         $("work-new").addEventListener("click", () => {
             $("work-id").value = "";
             $("work-title").value = "";
-            $("work-year").value = "";
             $("work-type").value = "0Animations";
             $("work-description").value = "";
             $("work-credits").value = "";
@@ -1020,7 +776,6 @@
             const id = $("work-id").value.trim();
             const data = {
                 project_title: $("work-title").value.trim(),
-                year: $("work-year").value.trim(),
                 type: $("work-type").value,
                 description_of_project: $("work-description").value,
                 credits: $("work-credits").value,
@@ -1058,7 +813,6 @@
                 await deleteDoc(doc(db, "work", id));
                 $("work-id").value = "";
                 $("work-title").value = "";
-                $("work-year").value = "";
                 $("work-type").value = "0Animations";
                 $("work-description").value = "";
                 $("work-credits").value = "";
@@ -1087,32 +841,12 @@
             }
         });
 
-        // Initial load function (only when authenticated)
-        const loadAdminData = async () => {
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/4443438e-daa7-4d6e-acaa-156e981e71a6', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'admin.html:1038', message: 'loadAdminData called', data: { currentUserExists: !!currentUser }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'C' }) }).catch(() => { });
-            // #endregion
-            if (currentUser) {
-                await loadRooms();
-                await loadVault();
-                await loadWork();
-            }
-        };
-
-        // Monitor authentication state and load data when authenticated
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/4443438e-daa7-4d6e-acaa-156e981e71a6', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'admin.html:1047', message: 'Setting up onAuthStateChanged listener', data: { authExists: !!auth }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'C' }) }).catch(() => { });
-        // #endregion
-        onAuthStateChanged(auth, async (user) => {
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/4443438e-daa7-4d6e-acaa-156e981e71a6', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'admin.html:1048', message: 'onAuthStateChanged fired', data: { userExists: !!user, userEmail: user?.email }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'C' }) }).catch(() => { });
-            // #endregion
-            updateUI(user);
-            if (user) {
-                await loadAdminData();
-            }
-        });
-
+        // Initial load
+        (async () => {
+            await loadRooms();
+            await loadVault();
+            await loadWork();
+        })();
     </script>
 </body>
 
